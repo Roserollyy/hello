@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<meta name="viewport" content="width=640, user-scalable=no">
+	<link rel="stylesheet" href="css/zepto.fullpage.css">
+	<link rel="stylesheet" href="css/global.css">
+	<link rel="stylesheet" href="css/animate.css">
+	<link rel="stylesheet" href="css/h5.css">
+</head>
+<body>
+	<div class="wp">
+		<div class="wp-inner">
+			<div class="page page1">
+				<h1 class="logo">
+					<img src="images/p1/logo.png"  alt="">
+				</h1>
+				<div class="oneyear js-animate animated " data-animate="bounceInLeft">
+					<img src="images/p1/page1_1.png" alt="">
+				</div>
+				<div class="dont animated js-animate" data-animate="bounceInRight">
+					<img src="images/p1/dont.png"  alt="">
+				</div>
+				<div class="eleven">
+					<img src="images/p1/11.png"  alt="">
+				</div>
+				<div class="person animated js-animate" data-animate="bounceInDown">
+					<img src="images/p1/person.png" height="660" width="500" alt="">
+				</div>
+			</div>
+			<div class="page page2">
+				<div class="page2-1 animated js-animate" data-animate="bounceInLeft">
+					<img src="images/p2/font.png"  alt="">
+				</div>
+				<div class="page2-2 animated js-animate" data-animate="bounceInDown" >
+					<img src="images/p2/page2_1.png" height="636" width="611" alt="">
+				</div>
+			</div>
+			<div class="page page3">3</div>
+			<div class="page page4">4</div>
+		</div>
+	</div>
+	<!-- 音乐响起 -->
+	<div class="music-box">
+		<i style="animation: rote 1.5s linear 0s infinite;"></i>
+	</div>
+</body>
+</html>
+<script src="js/zepto.min.js"></script>
+<script src="js/zepto.fullpage.js"></script>
+<script>
+	//滚屏效果
+	$('.wp-inner').fullpage({
+		//改变的时候
+		change:function(e){
+			console.log(e.cur);
+			//先把要做动画的元素都隐藏
+			//滚动哪一屏就让哪一屏中的js-animate，隐藏
+			$('.page').eq(e.cur).find('.js-animate').each(function(){
+				$(this).addClass($(this).data('animate')).hide();
+			})
+		},
+		afterChange:function(e){
+			console.log(e.cur);
+			//进入之后，让里边要做动画部分做显示
+			$('.page').eq(e.cur).find('.js-animate').each(function(){
+				$(this).addClass($(this).data('animate')).show();
+			})
+
+		}
+	});
+	//声音播放
+	var flag=1;
+	//1当前是开着的，2表示当前是关闭的
+	$('.music-box i').click(function(event) {
+		//alert('ok')
+		//如果当前是开，点击关闭，否则开
+		if (flag==1) {
+			$(this).css('animation','');
+			$('.music-box').css('background','none');
+			//关闭之后，状态也是属于关闭状态
+			flag=2;
+		}else{
+			$(this).css('animation','rote 1.5s linear 0s infinite;');
+			$('.music-box').css('background','url(images/p1/music_2.gif)');
+			//打开之后，状态也是属于打开状态
+			flag=1;
+		}
+	});
+</script>
